@@ -1,4 +1,5 @@
-from discord.ext.commands import Context
+import os
+from discord.ext.commands import Context, Bot
 from discord.ext import commands
 from Helpers.YT import YouTube
 import discord
@@ -6,7 +7,7 @@ import discord
 voice_history = []
 
 class Voice(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: Bot):
         self.bot = bot
 
         # Voice Vars
@@ -44,6 +45,7 @@ class Voice(commands.Cog):
     @commands.command()
     async def PlayYT(self, ctx: Context, url: str):
         """Allow the bot to get a YT Video and start playing it."""
+        os.remove("./ytDownloads/audio.mp3")
         await ctx.send("Please wait while I download the video...")
         result = YouTube(url=url).Download()
         if not result:
@@ -69,5 +71,5 @@ class Voice(commands.Cog):
         self.vc.play(audio_source, after=lambda e: print(f"player error: {e}") if e else None)
         return True
 
-async def setup(bot):
+async def setup(bot: Bot):
     await bot.add_cog(Voice(bot))

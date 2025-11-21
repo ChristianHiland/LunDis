@@ -21,8 +21,5 @@ class General(commands.Cog):
         if channel is not None:
             await channel.send(f"🎉 It's a **{member.mention}**! Is it Human? Or maybe another one of me?!\n")
 
-
-
-
 async def setup(bot):
     await bot.add_cog(General(bot))

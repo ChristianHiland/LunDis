@@ -5,12 +5,16 @@ import os
 
 
 API_KEY = os.getenv('GEMINI_TOKEN')
-
-geminiClient = genai.Client(api_key="AIzaSyD05Hssd6V8PWbRZc-Be3U0fCSINRpFSJI")
+geminiClient = None
+if API_KEY != None:
+    geminiClient = genai.Client(api_key=API_KEY)
 
 class Gemini:
-    def __init__(self, prompt: str = "", max_chars: int = 1950, model_name: str = "gemini-2.5-flash"):
-        self.client = geminiClient
+    def __init__(self, prompt: str = "", max_chars: int = 1950, model_name: str = "gemini-2.5-flash", client = None):
+        if client == None:
+            self.client = geminiClient
+        else:
+            self.client = client
         self.prompt = prompt
         self.model_name = model_name
         self.max_chars = max_chars

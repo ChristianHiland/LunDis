@@ -1,6 +1,6 @@
+from Helpers.Gemini import Gemini
 from discord.ext import commands
 from dotenv import load_dotenv
-from cogs.gemini import Gemini
 from google import genai
 from time import sleep
 import discord
@@ -9,14 +9,15 @@ import os
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
+GEM_API = os.getenv('GEMINI_TOKEN')
 DEBUG = False
 if os.getenv("DEBUG") == "true":
     DEBUG = True
 
-gemini_client=None
+gemini_client = None
 
 try:
-    gemini_client = genai.Client(api_key="AIzaSyD05Hssd6V8PWbRZc-Be3U0fCSINRpFSJI")
+    gemini_client = genai.Client(api_key=GEM_API)
 except Exception as e:
     print(f"Failed to initialize Gemini Client: {e}")
     gemini_client = None # Handle case where client might not be available
@@ -29,7 +30,6 @@ lock_channels = {0: [8280938290138208309,3727389193798237], 1438330109311586407:
 
 # Making a connection to Discord
 bot = commands.Bot(command_prefix='>', intents=intents)
-bot.gemini_client = gemini_client
 
 #
 # Helper Functions

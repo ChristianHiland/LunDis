@@ -1,6 +1,6 @@
 from Helpers.Processing import STT, TTS
 from discord.ext import commands
-from cogs.gemini import Gemini
+from Helpers.gemini import Gemini
 import discord
 import os
 

@@ -11,6 +11,7 @@ class YouTube:
         # Getting Cookie file path
         BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
         cookie_filepath = os.path.join(BASE_DIR, "cookies.txt")
+        global result
         try:
             args = [
                 "yt-dlp",
@@ -22,12 +23,13 @@ class YouTube:
                 self.url
             ]
             result = subprocess.run(args, check=True, capture_output=True, text=True)
-            print(result.stdout)
+            print(result.stderr)
+            print(f"[RESULT]: {result.stdout}, [ERROR]: {result.stderr}")
             print(f"Successfully downloaded and converted {self.url} to MP3.")
             return True
         except subprocess.CalledProcessError as e:
-            print(f"[YT ERROR]: {result.stderr}")
-            return False
+            print(e)
+            return True
         except Exception as e:
             print(f"[YT ERROR]: An error occurred: {e}")
             return False

@@ -1,5 +1,5 @@
 from google.cloud import texttospeech
-from cogs.gemini import Gemini
+from Helpers.gemini import Gemini
 
 class STT:
     def __init__(self, filepath):
